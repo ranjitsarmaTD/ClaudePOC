@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { Router } from 'express';
 import { container } from 'tsyringe';
 import { EmployeeController } from '../controllers/EmployeeController';
@@ -39,22 +40,14 @@ router.get('/department/:departmentId', employeeController.getEmployeesByDepartm
  * @desc    Create new employee
  * @access  Private (Admin)
  */
-router.post(
-  '/',
-  validateDto(CreateEmployeeDto, 'body'),
-  employeeController.createEmployee
-);
+router.post('/', validateDto(CreateEmployeeDto, 'body'), employeeController.createEmployee);
 
 /**
  * @route   PUT /api/v1/employees/:id
  * @desc    Update employee
  * @access  Private (Admin)
  */
-router.put(
-  '/:id',
-  validateDto(UpdateEmployeeDto, 'body'),
-  employeeController.updateEmployee
-);
+router.put('/:id', validateDto(UpdateEmployeeDto, 'body'), employeeController.updateEmployee);
 
 /**
  * @route   DELETE /api/v1/employees/:id

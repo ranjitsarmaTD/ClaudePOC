@@ -49,9 +49,7 @@ export const errorMiddleware = (
     success: false,
     error: {
       code: 'INTERNAL_SERVER_ERROR',
-      message: appConfig.isProduction()
-        ? 'An unexpected error occurred'
-        : err.message,
+      message: appConfig.isProduction() ? 'An unexpected error occurred' : err.message,
     },
   };
 

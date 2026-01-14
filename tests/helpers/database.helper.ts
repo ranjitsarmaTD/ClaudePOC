@@ -29,10 +29,17 @@ export async function closeTestDatabase(): Promise<void> {
 }
 
 export async function clearDatabase(): Promise<void> {
-  const entities = TestDataSource.entityMetadatas;
+  const queryRunner = TestDataSource.createQueryRunner();
 
-  for (const entity of entities) {
-    const repository = TestDataSource.getRepository(entity.name);
-    await repository.clear();
+  try {
+    // Clear tables in correct order (child tables first to avoid FK constraint errors)
+    await queryRunner.query('TRUNCATE TABLE "employees" CASCADE;');
+    await queryRunner.query('TRUNCATE TABLE "users" CASCADE;');
+    await queryRunner.query('TRUNCATE TABLE "departments" CASCADE;');
+  } catch (error) {
+    // If tables don't exist yet, ignore the error
+    console.log('Warning: Could not clear database tables', error);
+  } finally {
+    await queryRunner.release();
   }
 }

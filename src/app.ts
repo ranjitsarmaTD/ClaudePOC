@@ -12,9 +12,6 @@ import { appConfig } from './config';
 import { errorMiddleware } from './middlewares/error.middleware';
 import { loggingMiddleware } from './middlewares/logging.middleware';
 
-// Routes
-import routes from './routes';
-
 // Utils
 import { logger } from './utils/logger';
 import { NotFoundError } from './utils/errors';
@@ -85,6 +82,10 @@ export class App {
 
   private setupRoutes(): void {
     const config = appConfig.get();
+
+    // Import routes after DI is set up (lazy import to avoid circular dependency issues)
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const routes = require('./routes').default;
 
     // Mount API routes
     this.app.use(config.apiPrefix, routes);

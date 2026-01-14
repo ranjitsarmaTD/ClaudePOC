@@ -31,9 +31,7 @@ export const validateDto =
     }
   };
 
-function formatValidationErrors(
-  errors: ClassValidatorError[]
-): Record<string, string[]> {
+function formatValidationErrors(errors: ClassValidatorError[]): Record<string, string[]> {
   const formatted: Record<string, string[]> = {};
 
   errors.forEach((error) => {

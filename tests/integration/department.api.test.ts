@@ -1,9 +1,9 @@
 import request from 'supertest';
 import { App } from '../../src/app';
-import { initializeTestDatabase, closeTestDatabase, clearDatabase } from '../helpers/database.helper';
+import { initializeDatabase, closeDatabase } from '../../src/database/connection';
+import { AppDataSource } from '../../src/database/connection';
 import { User } from '../../src/entities/User.entity';
 import { Department } from '../../src/entities/Department.entity';
-import { TestDataSource } from '../helpers/database.helper';
 import bcrypt from 'bcrypt';
 import { JwtUtil } from '../../src/utils/jwt.util';
 import { UserRole } from '../../src/types/common.types';
@@ -14,12 +14,15 @@ describe('Department API Integration Tests', () => {
   let testUser: User;
 
   beforeAll(async () => {
-    await initializeTestDatabase();
+    // Initialize AppDataSource with test configuration
+    await initializeDatabase();
+
+    // Create App instance after DB is initialized
     const appInstance = new App();
     app = appInstance.getExpressApp();
 
     // Create test user and get auth token
-    const userRepository = TestDataSource.getRepository(User);
+    const userRepository = AppDataSource.getRepository(User);
     const hashedPassword = await bcrypt.hash('testpassword', 10);
 
     testUser = userRepository.create({
@@ -38,13 +41,19 @@ describe('Department API Integration Tests', () => {
   });
 
   afterAll(async () => {
-    await closeTestDatabase();
+    await closeDatabase();
   });
 
   beforeEach(async () => {
-    // Clear departments before each test
-    const departmentRepository = TestDataSource.getRepository(Department);
-    await departmentRepository.clear();
+    // Clear departments before each test (CASCADE to handle FK constraints)
+    const queryRunner = AppDataSource.createQueryRunner();
+    try {
+      await queryRunner.query('TRUNCATE TABLE "departments" CASCADE;');
+    } catch (error) {
+      console.log('Warning: Could not clear departments table', error);
+    } finally {
+      await queryRunner.release();
+    }
   });
 
   describe('POST /api/v1/departments', () => {
@@ -110,17 +119,14 @@ describe('Department API Integration Tests', () => {
         description: 'Software development team',
       };
 
-      await request(app)
-        .post('/api/v1/departments')
-        .send(departmentData)
-        .expect(401);
+      await request(app).post('/api/v1/departments').send(departmentData).expect(401);
     });
   });
 
   describe('GET /api/v1/departments', () => {
     it('should return all departments', async () => {
       // Create test departments
-      const departmentRepository = TestDataSource.getRepository(Department);
+      const departmentRepository = AppDataSource.getRepository(Department);
       await departmentRepository.save([
         { name: 'Engineering', description: 'Dev team' },
         { name: 'Sales', description: 'Sales team' },
@@ -150,7 +156,7 @@ describe('Department API Integration Tests', () => {
 
   describe('GET /api/v1/departments/:id', () => {
     it('should return department by id', async () => {
-      const departmentRepository = TestDataSource.getRepository(Department);
+      const departmentRepository = AppDataSource.getRepository(Department);
       const department = await departmentRepository.save({
         name: 'Engineering',
         description: 'Dev team',
@@ -181,7 +187,7 @@ describe('Department API Integration Tests', () => {
 
   describe('PUT /api/v1/departments/:id', () => {
     it('should update department', async () => {
-      const departmentRepository = TestDataSource.getRepository(Department);
+      const departmentRepository = AppDataSource.getRepository(Department);
       const department = await departmentRepository.save({
         name: 'Engineering',
         description: 'Dev team',
@@ -218,7 +224,7 @@ describe('Department API Integration Tests', () => {
 
   describe('DELETE /api/v1/departments/:id', () => {
     it('should delete department (soft delete)', async () => {
-      const departmentRepository = TestDataSource.getRepository(Department);
+      const departmentRepository = AppDataSource.getRepository(Department);
       const department = await departmentRepository.save({
         name: 'Engineering',
         description: 'Dev team',
