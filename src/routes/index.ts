@@ -1,15 +1,12 @@
 import { Router } from 'express';
+import authRoutes from './auth.routes';
+import employeeRoutes from './employee.routes';
+import departmentRoutes from './department.routes';
 
 const router = Router();
 
 /**
  * API Routes
- *
- * Register all route modules here.
- * Example:
- *   router.use('/auth', authRoutes);
- *   router.use('/employees', employeeRoutes);
- *   router.use('/departments', departmentRoutes);
  */
 
 // Health check endpoint
@@ -23,5 +20,12 @@ router.get('/health', (_req, res) => {
     },
   });
 });
+
+// Auth routes (public)
+router.use('/auth', authRoutes);
+
+// Protected routes
+router.use('/employees', employeeRoutes);
+router.use('/departments', departmentRoutes);
 
 export default router;

@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { App } from './app';
 import { appConfig } from './config';
 import { logger } from './utils/logger';
+import { initializeDatabase, closeDatabase } from './database/connection';
 
 // Handle uncaught exceptions
 process.on('uncaughtException', (error: Error) => {
@@ -22,14 +23,14 @@ process.on('unhandledRejection', (reason: unknown) => {
 
 async function bootstrap(): Promise<void> {
   try {
+    // Initialize database connection
+    await initializeDatabase();
+
     // Initialize Express application
     const appInstance = new App();
     const app = appInstance.getExpressApp();
 
     const config = appConfig.get();
-
-    // TODO: Initialize database connection here
-    // await initializeDatabase();
 
     // Start server
     const server = app.listen(config.port, () => {
@@ -48,8 +49,8 @@ async function bootstrap(): Promise<void> {
         logger.info('HTTP server closed');
       });
 
-      // TODO: Close database connection
-      // await closeDatabase();
+      // Close database connection
+      await closeDatabase();
 
       process.exit(0);
     };
