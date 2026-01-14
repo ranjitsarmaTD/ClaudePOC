@@ -1,0 +1,261 @@
+
+> hr-admin-backend@1.0.0 test
+> jest --coverage
+
+PASS tests/unit/utils/jwt.util.test.ts
+  JwtUtil
+    generateToken
+      ✓ should generate a valid JWT token (12 ms)
+    verifyToken
+      ✓ should verify and decode a valid token (2 ms)
+      ✓ should throw error for invalid token (8 ms)
+
+PASS tests/unit/services/DepartmentService.test.ts
+  DepartmentService
+    getAllDepartments
+      ✓ should return all departments (12 ms)
+      ✓ should return empty array when no departments exist (1 ms)
+    getDepartmentById
+      ✓ should return department when found (1 ms)
+      ✓ should throw NotFoundError when department not found (11 ms)
+      ✓ should throw ValidationError when id is empty (3 ms)
+    createDepartment
+      ✓ should create department successfully (1 ms)
+      ✓ should throw ConflictError when department name already exists (1 ms)
+    updateDepartment
+      ✓ should update department successfully (1 ms)
+      ✓ should throw NotFoundError when department does not exist (1 ms)
+      ✓ should throw ConflictError when new name already exists (1 ms)
+      ✓ should not check for name conflict when name is not being updated (4 ms)
+    deleteDepartment
+      ✓ should delete department successfully (1 ms)
+      ✓ should throw NotFoundError when department does not exist (1 ms)
+      ✓ should throw NotFoundError when delete operation fails
+      ✓ should throw ValidationError when id is empty (1 ms)
+
+FAIL tests/integration/department.api.test.ts
+  Department API Integration Tests
+    POST /api/v1/departments
+      ✕ should create a new department (6 ms)
+      ✕ should return 409 when department name already exists (1 ms)
+      ✕ should return 400 when validation fails
+      ✕ should return 401 when no auth token provided
+    GET /api/v1/departments
+      ✕ should return all departments
+      ✕ should return empty array when no departments exist
+    GET /api/v1/departments/:id
+      ✕ should return department by id
+      ✕ should return 404 when department not found
+    PUT /api/v1/departments/:id
+      ✕ should update department (1 ms)
+      ✕ should return 404 when department not found
+    DELETE /api/v1/departments/:id
+      ✕ should delete department (soft delete)
+      ✕ should return 404 when department not found
+
+  ● Department API Integration Tests › POST /api/v1/departments › should create a new department
+
+    QueryFailedError: duplicate key value violates unique constraint "UQ_97672ac88f789774dd47f7c8be3"
+
+      at PostgresQueryRunner.query (src/driver/postgres/PostgresQueryRunner.ts:325:19)
+      at InsertQueryBuilder.execute (src/query-builder/InsertQueryBuilder.ts:164:33)
+      at SubjectExecutor.executeInsertOperations (src/persistence/SubjectExecutor.ts:435:42)
+      at SubjectExecutor.execute (src/persistence/SubjectExecutor.ts:137:9)
+      at EntityPersistExecutor.execute (src/persistence/EntityPersistExecutor.ts:182:21)
+      at Object.<anonymous> (tests/integration/department.api.test.ts:33:5)
+
+  ● Department API Integration Tests › POST /api/v1/departments › should return 409 when department name already exists
+
+    QueryFailedError: duplicate key value violates unique constraint "UQ_97672ac88f789774dd47f7c8be3"
+
+      at PostgresQueryRunner.query (src/driver/postgres/PostgresQueryRunner.ts:325:19)
+      at InsertQueryBuilder.execute (src/query-builder/InsertQueryBuilder.ts:164:33)
+      at SubjectExecutor.executeInsertOperations (src/persistence/SubjectExecutor.ts:435:42)
+      at SubjectExecutor.execute (src/persistence/SubjectExecutor.ts:137:9)
+      at EntityPersistExecutor.execute (src/persistence/EntityPersistExecutor.ts:182:21)
+      at Object.<anonymous> (tests/integration/department.api.test.ts:33:5)
+
+  ● Department API Integration Tests › POST /api/v1/departments › should return 400 when validation fails
+
+    QueryFailedError: duplicate key value violates unique constraint "UQ_97672ac88f789774dd47f7c8be3"
+
+      at PostgresQueryRunner.query (src/driver/postgres/PostgresQueryRunner.ts:325:19)
+      at InsertQueryBuilder.execute (src/query-builder/InsertQueryBuilder.ts:164:33)
+      at SubjectExecutor.executeInsertOperations (src/persistence/SubjectExecutor.ts:435:42)
+      at SubjectExecutor.execute (src/persistence/SubjectExecutor.ts:137:9)
+      at EntityPersistExecutor.execute (src/persistence/EntityPersistExecutor.ts:182:21)
+      at Object.<anonymous> (tests/integration/department.api.test.ts:33:5)
+
+  ● Department API Integration Tests › POST /api/v1/departments › should return 401 when no auth token provided
+
+    QueryFailedError: duplicate key value violates unique constraint "UQ_97672ac88f789774dd47f7c8be3"
+
+      at PostgresQueryRunner.query (src/driver/postgres/PostgresQueryRunner.ts:325:19)
+      at InsertQueryBuilder.execute (src/query-builder/InsertQueryBuilder.ts:164:33)
+      at SubjectExecutor.executeInsertOperations (src/persistence/SubjectExecutor.ts:435:42)
+      at SubjectExecutor.execute (src/persistence/SubjectExecutor.ts:137:9)
+      at EntityPersistExecutor.execute (src/persistence/EntityPersistExecutor.ts:182:21)
+      at Object.<anonymous> (tests/integration/department.api.test.ts:33:5)
+
+  ● Department API Integration Tests › GET /api/v1/departments › should return all departments
+
+    QueryFailedError: duplicate key value violates unique constraint "UQ_97672ac88f789774dd47f7c8be3"
+
+      at PostgresQueryRunner.query (src/driver/postgres/PostgresQueryRunner.ts:325:19)
+      at InsertQueryBuilder.execute (src/query-builder/InsertQueryBuilder.ts:164:33)
+      at SubjectExecutor.executeInsertOperations (src/persistence/SubjectExecutor.ts:435:42)
+      at SubjectExecutor.execute (src/persistence/SubjectExecutor.ts:137:9)
+      at EntityPersistExecutor.execute (src/persistence/EntityPersistExecutor.ts:182:21)
+      at Object.<anonymous> (tests/integration/department.api.test.ts:33:5)
+
+  ● Department API Integration Tests › GET /api/v1/departments › should return empty array when no departments exist
+
+    QueryFailedError: duplicate key value violates unique constraint "UQ_97672ac88f789774dd47f7c8be3"
+
+      at PostgresQueryRunner.query (src/driver/postgres/PostgresQueryRunner.ts:325:19)
+      at InsertQueryBuilder.execute (src/query-builder/InsertQueryBuilder.ts:164:33)
+      at SubjectExecutor.executeInsertOperations (src/persistence/SubjectExecutor.ts:435:42)
+      at SubjectExecutor.execute (src/persistence/SubjectExecutor.ts:137:9)
+      at EntityPersistExecutor.execute (src/persistence/EntityPersistExecutor.ts:182:21)
+      at Object.<anonymous> (tests/integration/department.api.test.ts:33:5)
+
+  ● Department API Integration Tests › GET /api/v1/departments/:id › should return department by id
+
+    QueryFailedError: duplicate key value violates unique constraint "UQ_97672ac88f789774dd47f7c8be3"
+
+      at PostgresQueryRunner.query (src/driver/postgres/PostgresQueryRunner.ts:325:19)
+      at InsertQueryBuilder.execute (src/query-builder/InsertQueryBuilder.ts:164:33)
+      at SubjectExecutor.executeInsertOperations (src/persistence/SubjectExecutor.ts:435:42)
+      at SubjectExecutor.execute (src/persistence/SubjectExecutor.ts:137:9)
+      at EntityPersistExecutor.execute (src/persistence/EntityPersistExecutor.ts:182:21)
+      at Object.<anonymous> (tests/integration/department.api.test.ts:33:5)
+
+  ● Department API Integration Tests › GET /api/v1/departments/:id › should return 404 when department not found
+
+    QueryFailedError: duplicate key value violates unique constraint "UQ_97672ac88f789774dd47f7c8be3"
+
+      at PostgresQueryRunner.query (src/driver/postgres/PostgresQueryRunner.ts:325:19)
+      at InsertQueryBuilder.execute (src/query-builder/InsertQueryBuilder.ts:164:33)
+      at SubjectExecutor.executeInsertOperations (src/persistence/SubjectExecutor.ts:435:42)
+      at SubjectExecutor.execute (src/persistence/SubjectExecutor.ts:137:9)
+      at EntityPersistExecutor.execute (src/persistence/EntityPersistExecutor.ts:182:21)
+      at Object.<anonymous> (tests/integration/department.api.test.ts:33:5)
+
+  ● Department API Integration Tests › PUT /api/v1/departments/:id › should update department
+
+    QueryFailedError: duplicate key value violates unique constraint "UQ_97672ac88f789774dd47f7c8be3"
+
+      at PostgresQueryRunner.query (src/driver/postgres/PostgresQueryRunner.ts:325:19)
+      at InsertQueryBuilder.execute (src/query-builder/InsertQueryBuilder.ts:164:33)
+      at SubjectExecutor.executeInsertOperations (src/persistence/SubjectExecutor.ts:435:42)
+      at SubjectExecutor.execute (src/persistence/SubjectExecutor.ts:137:9)
+      at EntityPersistExecutor.execute (src/persistence/EntityPersistExecutor.ts:182:21)
+      at Object.<anonymous> (tests/integration/department.api.test.ts:33:5)
+
+  ● Department API Integration Tests › PUT /api/v1/departments/:id › should return 404 when department not found
+
+    QueryFailedError: duplicate key value violates unique constraint "UQ_97672ac88f789774dd47f7c8be3"
+
+      at PostgresQueryRunner.query (src/driver/postgres/PostgresQueryRunner.ts:325:19)
+      at InsertQueryBuilder.execute (src/query-builder/InsertQueryBuilder.ts:164:33)
+      at SubjectExecutor.executeInsertOperations (src/persistence/SubjectExecutor.ts:435:42)
+      at SubjectExecutor.execute (src/persistence/SubjectExecutor.ts:137:9)
+      at EntityPersistExecutor.execute (src/persistence/EntityPersistExecutor.ts:182:21)
+      at Object.<anonymous> (tests/integration/department.api.test.ts:33:5)
+
+  ● Department API Integration Tests › DELETE /api/v1/departments/:id › should delete department (soft delete)
+
+    QueryFailedError: duplicate key value violates unique constraint "UQ_97672ac88f789774dd47f7c8be3"
+
+      at PostgresQueryRunner.query (src/driver/postgres/PostgresQueryRunner.ts:325:19)
+      at InsertQueryBuilder.execute (src/query-builder/InsertQueryBuilder.ts:164:33)
+      at SubjectExecutor.executeInsertOperations (src/persistence/SubjectExecutor.ts:435:42)
+      at SubjectExecutor.execute (src/persistence/SubjectExecutor.ts:137:9)
+      at EntityPersistExecutor.execute (src/persistence/EntityPersistExecutor.ts:182:21)
+      at Object.<anonymous> (tests/integration/department.api.test.ts:33:5)
+
+  ● Department API Integration Tests › DELETE /api/v1/departments/:id › should return 404 when department not found
+
+    QueryFailedError: duplicate key value violates unique constraint "UQ_97672ac88f789774dd47f7c8be3"
+
+      at PostgresQueryRunner.query (src/driver/postgres/PostgresQueryRunner.ts:325:19)
+      at InsertQueryBuilder.execute (src/query-builder/InsertQueryBuilder.ts:164:33)
+      at SubjectExecutor.executeInsertOperations (src/persistence/SubjectExecutor.ts:435:42)
+      at SubjectExecutor.execute (src/persistence/SubjectExecutor.ts:137:9)
+      at EntityPersistExecutor.execute (src/persistence/EntityPersistExecutor.ts:182:21)
+      at Object.<anonymous> (tests/integration/department.api.test.ts:33:5)
+
+-----------------------------|---------|----------|---------|---------|----------------------------------------
+File                         | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                      
+-----------------------------|---------|----------|---------|---------|----------------------------------------
+All files                    |   58.25 |    43.22 |   43.16 |   56.32 |                                        
+ src                         |   92.85 |        0 |      75 |   92.85 |                                        
+  app.ts                     |   92.85 |        0 |      75 |   92.85 | 77,95,108                              
+ src/config                  |   74.13 |    54.54 |      95 |   72.22 |                                        
+  app.config.ts              |   80.95 |       50 |    87.5 |      80 | 44,48,52,61                            
+  database.config.ts         |   78.57 |       60 |     100 |   78.57 | 41,45,49                               
+  index.ts                   |     100 |      100 |     100 |     100 |                                        
+  jwt.config.ts              |      75 |    53.33 |     100 |      75 | 27,31,37                               
+  swagger.config.ts          |       0 |      100 |     100 |       0 | 1-318                                  
+ src/container               |     100 |      100 |      50 |     100 |                                        
+  dependency-injection.ts    |     100 |      100 |      50 |     100 |                                        
+ src/controllers             |   31.42 |       50 |      20 |   27.27 |                                        
+  AuthController.ts          |   57.14 |       50 |      50 |      50 | 16-25                                  
+  DepartmentController.ts    |   28.57 |       50 |   16.66 |      25 | 21-29,38-47,56-65,74-84,93-101         
+  EmployeeController.ts      |   26.53 |       50 |   14.28 |    23.4 | 21-29,38-47,56-65,74-83,92-102,111-119 
+ src/database                |   81.81 |    66.66 |     100 |   81.81 |                                        
+  connection.ts              |   81.81 |    66.66 |     100 |   81.81 | 33-34,45-46                            
+ src/dtos/auth               |   46.15 |      100 |       0 |   46.15 |                                        
+  auth-response.dto.ts       |   22.22 |      100 |       0 |   22.22 | 11-18,27-28                            
+  login.dto.ts               |     100 |      100 |     100 |     100 |                                        
+ src/dtos/department         |   52.94 |      100 |       0 |   56.25 |                                        
+  create-department.dto.ts   |     100 |      100 |     100 |     100 |                                        
+  department-response.dto.ts |   11.11 |      100 |       0 |    12.5 | 11-23                                  
+  update-department.dto.ts   |     100 |      100 |     100 |     100 |                                        
+ src/dtos/employee           |   58.53 |        0 |       0 |      60 |                                        
+  create-employee.dto.ts     |     100 |      100 |     100 |     100 |                                        
+  employee-response.dto.ts   |   10.52 |        0 |       0 |   11.11 | 21-44                                  
+  update-employee.dto.ts     |     100 |      100 |     100 |     100 |                                        
+ src/entities                |     100 |    72.91 |     100 |     100 |                                        
+  Department.entity.ts       |     100 |       75 |     100 |     100 | 24-30                                  
+  Employee.entity.ts         |     100 |    70.83 |     100 |     100 | 38-64                                  
+  User.entity.ts             |     100 |       75 |     100 |     100 | 26-32                                  
+ src/middlewares             |   27.02 |        0 |   16.66 |      25 |                                        
+  auth.middleware.ts         |      24 |        0 |      25 |      24 | 23-40,47-58                            
+  error.middleware.ts        |   31.25 |        0 |       0 |   26.66 | 22-60                                  
+  logging.middleware.ts      |   33.33 |      100 |       0 |      25 | 5-28                                   
+  validation.middleware.ts   |      25 |        0 |      20 |      25 | 11-50                                  
+ src/repositories            |   38.18 |        0 |      12 |   30.61 |                                        
+  DepartmentRepository.ts    |      35 |        0 |   11.11 |   27.77 | 16-59                                  
+  EmployeeRepository.ts      |   31.81 |        0 |    9.09 |      25 | 16-74                                  
+  UserRepository.ts          |   53.84 |      100 |      20 |   45.45 | 16-36                                  
+ src/routes                  |   98.18 |      100 |       0 |   98.18 |                                        
+  auth.routes.ts             |     100 |      100 |     100 |     100 |                                        
+  department.routes.ts       |     100 |      100 |     100 |     100 |                                        
+  employee.routes.ts         |     100 |      100 |     100 |     100 |                                        
+  index.ts                   |    90.9 |      100 |       0 |    90.9 | 14                                     
+ src/services                |   38.29 |    28.57 |   47.05 |   36.26 |                                        
+  AuthService.ts             |   42.85 |    45.45 |      25 |   38.46 | 21-58                                  
+  DepartmentService.ts       |   96.07 |    76.47 |     100 |   95.91 | 62,82                                  
+  EmployeeService.ts         |   10.09 |     8.16 |   14.28 |    8.41 | 22-220                                 
+ src/types                   |     100 |      100 |     100 |     100 |                                        
+  common.types.ts            |     100 |      100 |     100 |     100 |                                        
+ src/utils                   |   76.66 |    33.33 |      50 |   76.66 |                                        
+  jwt.util.ts                |   82.35 |      100 |      75 |   82.35 | 44-47                                  
+  logger.ts                  |   69.23 |    33.33 |       0 |   69.23 | 14-15,30,55                            
+ src/utils/errors            |   86.95 |        0 |      50 |   84.61 |                                        
+  AppError.ts                |     100 |        0 |     100 |     100 | 11                                     
+  ConflictError.ts           |     100 |      100 |     100 |     100 |                                        
+  ForbiddenError.ts          |      50 |        0 |       0 |      50 | 5-6                                    
+  InternalServerError.ts     |      50 |        0 |       0 |      50 | 5-6                                    
+  NotFoundError.ts           |     100 |      100 |     100 |     100 |                                        
+  UnauthorizedError.ts       |      50 |        0 |       0 |      50 | 5-6                                    
+  ValidationError.ts         |     100 |      100 |     100 |     100 |                                        
+  index.ts                   |     100 |      100 |   42.85 |     100 |                                        
+-----------------------------|---------|----------|---------|---------|----------------------------------------
+Test Suites: 1 failed, 2 passed, 3 total
+Tests:       12 failed, 18 passed, 30 total
+Snapshots:   0 total
+Time:        6.321 s
+Ran all test suites.
+Force exiting Jest: Have you considered using `--detectOpenHandles` to detect async operations that kept running after all tests finished?

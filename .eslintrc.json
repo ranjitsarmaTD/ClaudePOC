@@ -44,5 +44,11 @@
     "eqeqeq": ["error", "always"],
     "curly": ["error", "all"]
   },
-  "ignorePatterns": ["dist", "node_modules", "coverage", "*.js"]
+  "ignorePatterns": [
+    "dist",
+    "node_modules",
+    "coverage",
+    "*.js",
+    "tests/**"
+  ]
 }

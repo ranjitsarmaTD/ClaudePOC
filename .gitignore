@@ -25,6 +25,12 @@ yarn-error.log*
 coverage/
 .nyc_output/
 
+# Documentation
+docs/
+
+# Husky
+.husky/
+
 # IDE
 .vscode/
 .idea/

@@ -12,7 +12,7 @@ const customFormat = winston.format.combine(
     ? winston.format.json()
     : winston.format.printf(({ timestamp, level, message, ...meta }) => {
         const metaString = Object.keys(meta).length ? JSON.stringify(meta, null, 2) : '';
-        return `${timestamp} [${level.toUpperCase()}]: ${message} ${metaString}`;
+        return `${String(timestamp)} [${String(level).toUpperCase()}]: ${String(message)} ${metaString}`;
       })
 );
 

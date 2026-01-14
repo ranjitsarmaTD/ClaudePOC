@@ -4,6 +4,7 @@ import { UnauthorizedError } from '../utils/errors';
 
 // Extend Express Request type to include user
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Express {
     interface Request {
       user?: JwtPayload;
@@ -42,7 +43,8 @@ export class AuthMiddleware {
   };
 
   public requireRole =
-    (allowedRoles: string[]) => (req: Request, _res: Response, next: NextFunction): void => {
+    (allowedRoles: string[]) =>
+    (req: Request, _res: Response, next: NextFunction): void => {
       if (!req.user) {
         next(new UnauthorizedError('Authentication required'));
         return;
