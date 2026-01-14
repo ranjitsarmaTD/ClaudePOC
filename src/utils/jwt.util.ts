@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import jwt, { SignOptions, VerifyOptions } from 'jsonwebtoken';
 import { jwtConfig } from '../config';
 
 export interface JwtPayload {
@@ -20,17 +20,20 @@ export class JwtUtil {
   }
 
   public generateToken(payload: JwtPayload): string {
-    return jwt.sign(payload, this.secret, {
-      expiresIn: this.expiresIn,
+    const options: SignOptions = {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
+      expiresIn: this.expiresIn as any,
       issuer: this.issuer,
-    });
+    };
+    return jwt.sign(payload, this.secret, options);
   }
 
   public verifyToken(token: string): JwtPayload {
     try {
-      const decoded = jwt.verify(token, this.secret, {
+      const options: VerifyOptions = {
         issuer: this.issuer,
-      }) as JwtPayload;
+      };
+      const decoded = jwt.verify(token, this.secret, options) as JwtPayload;
       return decoded;
     } catch (error) {
       throw new Error('Invalid or expired token');

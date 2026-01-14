@@ -12,6 +12,7 @@ const authController = container.resolve(AuthController);
  * @desc    Login user
  * @access  Public
  */
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
 router.post('/login', validateDto(LoginDto, 'body'), authController.login);
 
 export default router;

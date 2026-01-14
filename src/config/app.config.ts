@@ -41,9 +41,7 @@ class AppConfigService {
     const missingVars = requiredVars.filter((varName) => !process.env[varName]);
 
     if (missingVars.length > 0) {
-      throw new Error(
-        `Missing required environment variables: ${missingVars.join(', ')}`
-      );
+      throw new Error(`Missing required environment variables: ${missingVars.join(', ')}`);
     }
 
     if (isNaN(this.config.port) || this.config.port < 1 || this.config.port > 65535) {

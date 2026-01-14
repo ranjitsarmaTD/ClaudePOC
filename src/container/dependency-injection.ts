@@ -43,14 +43,8 @@ export function setupDependencyInjection(): void {
   container.registerSingleton(AuthMiddleware);
 
   // Register repositories as singletons
-  container.registerSingleton<IDepartmentRepository>(
-    'IDepartmentRepository',
-    DepartmentRepository
-  );
-  container.registerSingleton<IEmployeeRepository>(
-    'IEmployeeRepository',
-    EmployeeRepository
-  );
+  container.registerSingleton<IDepartmentRepository>('IDepartmentRepository', DepartmentRepository);
+  container.registerSingleton<IEmployeeRepository>('IEmployeeRepository', EmployeeRepository);
   container.registerSingleton<IUserRepository>('IUserRepository', UserRepository);
 
   // Register services as singletons

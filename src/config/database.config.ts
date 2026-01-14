@@ -38,9 +38,7 @@ class DatabaseConfigService {
     );
 
     if (missingVars.length > 0) {
-      throw new Error(
-        `Missing required database environment variables: ${missingVars.join(', ')}`
-      );
+      throw new Error(`Missing required database environment variables: ${missingVars.join(', ')}`);
     }
 
     if (isNaN(this.config.port) || this.config.port < 1 || this.config.port > 65535) {
@@ -48,9 +46,7 @@ class DatabaseConfigService {
     }
 
     if (this.config.synchronize && process.env.NODE_ENV === 'production') {
-      throw new Error(
-        'DB_SYNCHRONIZE must be false in production to prevent data loss'
-      );
+      throw new Error('DB_SYNCHRONIZE must be false in production to prevent data loss');
     }
   }
 
