@@ -25,8 +25,9 @@ yarn-error.log*
 coverage/
 .nyc_output/
 
-# Documentation
-docs/
+# Documentation (generated)
+# Note: docs/ directory contains markdown documentation that should be committed
+# TypeDoc output will go to a different location or can be ignored separately if needed
 
 # Husky
 .husky/

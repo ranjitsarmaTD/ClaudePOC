@@ -751,14 +751,60 @@ Authorization: Bearer <token>
 
 ---
 
+## 📚 Documentation
+
+Comprehensive documentation is available in the [`docs/`](./docs/) directory:
+
+### Getting Started
+- **[Setup Guide](./docs/SETUP.md)** - Complete installation and configuration instructions
+- **[Quick Start](./docs/QUICKSTART.md)** - Get running in 5 minutes
+- **[Configuration Guide](./docs/CONFIGURATION.md)** - Environment variables and settings
+
+### Development
+- **[Developer Guide](./docs/guides/DEVELOPER_GUIDE.md)** - Development workflow, best practices, and coding standards
+- **[Contributing Guidelines](./CONTRIBUTING.md)** - How to contribute to the project
+- **[Testing Guide](./TESTING_GUIDE.md)** - Testing strategies, running tests, and writing new tests
+
+### Architecture & API
+- **[System Architecture](./docs/architecture/ARCHITECTURE.md)** - Detailed architecture documentation
+- **[Database Schema](./docs/architecture/DATABASE.md)** - Database structure and relationships
+- **[API Overview](./docs/api/API_OVERVIEW.md)** - Complete API reference
+- **[API Documentation](./docs/api/AUTHENTICATION.md)** - Authentication and authorization
+- **[Swagger UI](http://localhost:3000/api/v1/docs)** - Interactive API documentation (when running)
+
+### Deployment & Operations
+- **[Deployment Guide](./docs/DEPLOYMENT.md)** - Production deployment instructions
+- **[Monitoring Guide](./docs/guides/MONITORING.md)** - Observability and logging
+- **[Security Guide](./docs/guides/SECURITY.md)** - Security best practices
+- **[Performance Tuning](./docs/guides/PERFORMANCE.md)** - Optimization strategies
+
+### Additional Resources
+- **[Troubleshooting](./docs/TROUBLESHOOTING.md)** - Common issues and solutions
+- **[FAQ](./docs/FAQ.md)** - Frequently asked questions
+- **[Glossary](./docs/GLOSSARY.md)** - Technical terms and definitions
+
+---
+
 ## Contributing
 
-1. Follow the established layered architecture
-2. Write tests for all new features
-3. Adhere to SOLID principles
-4. Use TypeScript strict mode
-5. Follow the existing code style (ESLint/Prettier)
-6. Update documentation for significant changes
+Contributions are welcome! Please read our [Contributing Guidelines](./CONTRIBUTING.md) for details on:
+
+- Code of conduct
+- Development process
+- Pull request workflow
+- Coding standards
+- Testing requirements
+
+### Quick Contribution Guide
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes following our [coding standards](./docs/guides/DEVELOPER_GUIDE.md#coding-standards)
+4. Write tests for your changes
+5. Run `npm run sanity-check` to ensure quality
+6. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+7. Push to the branch (`git push origin feature/amazing-feature`)
+8. Open a Pull Request
 
 ---
 
