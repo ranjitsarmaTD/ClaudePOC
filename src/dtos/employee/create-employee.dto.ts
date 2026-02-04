@@ -1,17 +1,4 @@
-import {
-  IsString,
-  IsNotEmpty,
-  IsEmail,
-  IsOptional,
-  IsNumber,
-  IsPositive,
-  IsDateString,
-  IsEnum,
-  IsUUID,
-  MaxLength,
-  Min,
-} from 'class-validator';
-import { EmployeeStatus } from '../../types/common.types';
+import { IsString, IsNotEmpty, IsOptional, MaxLength } from 'class-validator';
 
 export class CreateEmployeeDto {
   @IsString()

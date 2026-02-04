@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import express, { Application, Request, Response, NextFunction } from 'express';
+import express, { Application, Request, Response, NextFunction, Router } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
@@ -85,7 +85,7 @@ export class App {
 
     // Import routes after DI is set up (lazy import to avoid circular dependency issues)
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const routes = require('./routes').default;
+    const routes = (require('./routes') as { default: Router }).default;
 
     // Mount API routes
     this.app.use(config.apiPrefix, routes);
