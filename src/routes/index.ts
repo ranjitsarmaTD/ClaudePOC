@@ -2,6 +2,7 @@ import { Router } from 'express';
 import authRoutes from './auth.routes';
 import employeeRoutes from './employee.routes';
 import departmentRoutes from './department.routes';
+import deepwikiRoutes from './deepwiki.routes';
 
 const router = Router();
 
@@ -27,5 +28,8 @@ router.use('/auth', authRoutes);
 // Protected routes
 router.use('/employees', employeeRoutes);
 router.use('/departments', departmentRoutes);
+
+// DeepWiki routes (public)
+router.use('/deepwiki', deepwikiRoutes);
 
 export default router;
