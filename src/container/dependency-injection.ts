@@ -19,14 +19,17 @@ import { IUserRepository } from '../repositories/interfaces/IUserRepository';
 import { DepartmentService } from '../services/DepartmentService';
 import { EmployeeService } from '../services/EmployeeService';
 import { AuthService } from '../services/AuthService';
+import { DeepWikiService } from '../services/DeepWikiService';
 import { IDepartmentService } from '../services/interfaces/IDepartmentService';
 import { IEmployeeService } from '../services/interfaces/IEmployeeService';
 import { IAuthService } from '../services/interfaces/IAuthService';
+import { IDeepWikiService } from '../services/interfaces/IDeepWikiService';
 
 // Import controllers
 import { DepartmentController } from '../controllers/DepartmentController';
 import { EmployeeController } from '../controllers/EmployeeController';
 import { AuthController } from '../controllers/AuthController';
+import { DeepWikiController } from '../controllers/DeepWikiController';
 
 /**
  * Dependency Injection Container Setup
@@ -51,11 +54,13 @@ export function setupDependencyInjection(): void {
   container.registerSingleton<IDepartmentService>('IDepartmentService', DepartmentService);
   container.registerSingleton<IEmployeeService>('IEmployeeService', EmployeeService);
   container.registerSingleton<IAuthService>('IAuthService', AuthService);
+  container.registerSingleton<IDeepWikiService>('IDeepWikiService', DeepWikiService);
 
   // Register controllers as singletons
   container.registerSingleton(DepartmentController);
   container.registerSingleton(EmployeeController);
   container.registerSingleton(AuthController);
+  container.registerSingleton(DeepWikiController);
 }
 
 export { container };
