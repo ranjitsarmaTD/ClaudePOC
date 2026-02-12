@@ -1,0 +1,81 @@
+# DeepWiki Configuration for HR Admin Backend
+# Place this file in your project root
+
+deepwiki:
+  version: "1.0"
+
+  # ─── Project Identification ───
+  project:
+    name: "HR Admin Backend"
+    type: "backend-api"                    # backend-api | frontend | fullstack | data-pipeline | library
+    languages:
+      - typescript
+    framework: "express"
+    description: "HR Administration System Backend API with TypeScript, Express, and PostgreSQL"
+
+  # ─── Source Code Configuration ───
+  source:
+    provider: "github"
+    owner: "ranjitsarmaTD"
+    repo: "ClaudePOC"
+    branch: "main"
+    include:
+      - "src/**"
+    exclude:
+      - "**/*.test.ts"
+      - "**/*.spec.ts"
+      - "dist/**"
+      - "node_modules/**"
+      - "coverage/**"
+
+  # ─── Output Configuration ───
+  output:
+    format: "markdown"
+    destination: "./docs/wiki"
+    staticSite:
+      enabled: false
+      generator: "docusaurus"              # docusaurus | mkdocs | vitepress
+
+  # ─── Generation Settings ───
+  generation:
+    mode: "incremental"                    # full | incremental
+    trigger: "on-merge"                    # on-merge | on-push | manual | scheduled
+    sections:
+      - system_overview
+      - architecture
+      - api_reference
+      - database_schema
+      - service_docs
+      - workflow
+      - security
+      - developer_guide
+      - onboarding_guide
+
+  # ─── AI Configuration ───
+  ai:
+    provider: "anthropic"
+    defaultModel: "claude-sonnet-4-5-20250929"
+    modelOverrides:
+      architecture: "claude-opus-4-6"      # Complex reasoning for architecture docs
+      adr: "claude-opus-4-6"               # Architectural judgment
+      database_schema: "claude-haiku-4-5-20251001"  # Mechanical transformation
+    maxTokenBudget: 500000                 # Per generation run
+    maxCostBudget: 10.00                   # USD per generation run
+    cacheEnabled: true
+    cacheTTL: "7d"
+
+  # ─── Governance ───
+  governance:
+    approvalRequired: false                # true = PR-based review before publish
+    qualityThreshold: 70                   # Minimum quality score (0-100)
+    driftDetection: true
+    maxDriftDays: 7                        # Alert if docs are stale beyond this
+
+  # ─── Plugins (optional) ───
+  plugins: []
+    # - name: "openapi"
+    #   config:
+    #     specPath: "src/swagger.json"
+    # - name: "database-schema"
+    #   config:
+    #     connectionString: "${DB_URL}"
