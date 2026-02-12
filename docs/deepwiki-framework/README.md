@@ -22,6 +22,7 @@
 | 9 | [Deployment Models](./09-DEPLOYMENT.md) | SaaS, self-hosted, serverless, K8s |
 | 10 | [Extensibility](./10-EXTENSIBILITY.md) | Plugin architecture, adapters |
 | 11 | [Reference Implementation](./11-REFERENCE-IMPLEMENTATION.md) | APIs, schemas, prompts, diagrams |
+| 12 | [Adoption Roadmap](./12-ADOPTION-ROADMAP.md) | 3 adoption paths, onboarding guide, build order, cost estimates |
 
 ---
 
