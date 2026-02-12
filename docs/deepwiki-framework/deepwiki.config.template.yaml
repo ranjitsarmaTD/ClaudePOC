@@ -1,0 +1,242 @@
+# ╔══════════════════════════════════════════════════════════════════╗
+# ║          DEEPWIKI CONFIGURATION TEMPLATE (Generic)              ║
+# ║                                                                 ║
+# ║  Copy this file to your project root as: deepwiki.config.yaml  ║
+# ║  Then customize the values marked with ← CHANGE THIS           ║
+# ╚══════════════════════════════════════════════════════════════════╝
+
+deepwiki:
+  version: "1.0"
+
+  # ═══════════════════════════════════════════════════════════════
+  # PROJECT IDENTIFICATION
+  # ═══════════════════════════════════════════════════════════════
+  project:
+    name: "Your Project Name"              # ← CHANGE THIS
+    type: "backend-api"                    # ← CHANGE THIS
+    #   Options:
+    #   - backend-api        (Express, NestJS, FastAPI, Spring Boot, Go HTTP)
+    #   - frontend           (React, Vue, Angular, Next.js, Svelte)
+    #   - fullstack          (Next.js, Nuxt, Remix with API routes)
+    #   - data-pipeline      (Airflow, Spark, dbt, Prefect)
+    #   - library            (npm package, pip package, crate)
+    #   - microservice       (single service in a larger system)
+    #   - monorepo           (multi-package workspace)
+    #   - cli-tool           (command-line application)
+    #   - infrastructure     (Terraform, Pulumi, CloudFormation)
+
+    languages:                             # ← CHANGE THIS (list all)
+      - typescript
+      # - python
+      # - java
+      # - go
+      # - rust
+      # - ruby
+
+    framework: "express"                   # ← CHANGE THIS
+    #   Examples: express, nestjs, fastapi, django, flask, spring-boot,
+    #             gin, echo, react, nextjs, vue, angular, airflow, spark
+
+    description: "Brief project description"  # ← CHANGE THIS
+
+  # ═══════════════════════════════════════════════════════════════
+  # SOURCE CODE CONFIGURATION
+  # ═══════════════════════════════════════════════════════════════
+  source:
+    provider: "github"                     # ← CHANGE THIS: github | gitlab | bitbucket | azure_devops
+    owner: "your-org-or-username"          # ← CHANGE THIS
+    repo: "your-repo-name"                 # ← CHANGE THIS
+    branch: "main"                         # ← CHANGE THIS if different
+
+    include:                               # ← CHANGE THIS: where your source code lives
+      - "src/**"
+      # Common patterns:
+      # - "app/**"             (Rails, Django)
+      # - "lib/**"             (Libraries)
+      # - "packages/**"        (Monorepos)
+      # - "services/**"        (Microservices monorepo)
+      # - "dags/**"            (Airflow)
+      # - "cmd/**"             (Go projects)
+
+    exclude:                               # ← Adjust as needed
+      - "**/*.test.*"
+      - "**/*.spec.*"
+      - "**/__tests__/**"
+      - "dist/**"
+      - "build/**"
+      - "node_modules/**"
+      - ".git/**"
+      - "coverage/**"
+      - "**/*.d.ts"
+      # Add project-specific exclusions:
+      # - "vendor/**"          (Go, PHP)
+      # - "venv/**"            (Python)
+      # - "target/**"          (Java, Rust)
+
+  # ═══════════════════════════════════════════════════════════════
+  # OUTPUT CONFIGURATION
+  # ═══════════════════════════════════════════════════════════════
+  output:
+    format: "markdown"                     # markdown (only option for now)
+    destination: "./docs/wiki"             # ← CHANGE THIS if you want a different path
+
+    staticSite:
+      enabled: false                       # Set true to generate a browsable site
+      generator: "docusaurus"              # docusaurus | mkdocs | vitepress
+
+  # ═══════════════════════════════════════════════════════════════
+  # GENERATION SETTINGS
+  # ═══════════════════════════════════════════════════════════════
+  generation:
+    mode: "incremental"                    # full | incremental
+    #   full:        Regenerate everything from scratch
+    #   incremental: Only regenerate sections affected by code changes
+
+    trigger: "on-merge"                    # ← CHANGE THIS
+    #   on-merge:   Generate when PR merges to target branch
+    #   on-push:    Generate on every push (noisy, use for critical repos)
+    #   manual:     Only when explicitly triggered via CLI/API
+    #   scheduled:  On a cron schedule
+
+    # schedule: "0 2 * * 1"               # Uncomment for scheduled mode (cron syntax)
+
+    sections:                              # ← PICK THE SECTIONS YOU NEED
+      - system_overview                    # What the project does, tech stack, structure
+      - architecture                       # Component diagram, patterns, data flow
+      - api_reference                      # Endpoints, request/response schemas
+      - database_schema                    # Entities, ERD, migrations
+      - service_docs                       # Business logic layer documentation
+      - workflow                           # Sequence diagrams, user flows
+      # - infrastructure                   # Docker, CI/CD, deployment
+      # - security                         # Auth, validation, threat model
+      # - observability                    # Logging, monitoring, metrics
+      # - release_notes                    # Auto-generated changelog
+      # - adr                              # Architecture Decision Records
+      # - runbook                          # Operational runbooks
+      - developer_guide                    # Local setup, coding standards, testing
+      - onboarding_guide                   # New developer onboarding
+
+  # ═══════════════════════════════════════════════════════════════
+  # AI CONFIGURATION
+  # ═══════════════════════════════════════════════════════════════
+  ai:
+    provider: "anthropic"
+
+    defaultModel: "claude-sonnet-4-5-20250929"
+    #   Recommended defaults by use case:
+    #   - Small/medium projects:  claude-sonnet-4-5-20250929  (best quality/cost)
+    #   - Cost-sensitive:         claude-haiku-4-5-20251001   (cheapest, still good)
+    #   - Maximum quality:        claude-opus-4-6             (best, most expensive)
+
+    modelOverrides:                        # ← OPTIONAL: per-section model selection
+      architecture: "claude-opus-4-6"      # Complex reasoning tasks → Opus
+      adr: "claude-opus-4-6"              # Architectural judgment → Opus
+      database_schema: "claude-haiku-4-5-20251001"  # Mechanical tasks → Haiku
+      # api_reference: "claude-sonnet-4-5-20250929"
+      # service_docs: "claude-sonnet-4-5-20250929"
+      # developer_guide: "claude-sonnet-4-5-20250929"
+
+    maxTokenBudget: 500000                 # Max tokens per generation run
+    maxCostBudget: 10.00                   # Max USD per generation run
+
+    cacheEnabled: true                     # Cache AI responses (saves $$$)
+    cacheTTL: "7d"                         # Cache expiration
+
+  # ═══════════════════════════════════════════════════════════════
+  # GOVERNANCE
+  # ═══════════════════════════════════════════════════════════════
+  governance:
+    approvalRequired: false                # true = creates PR for review before publish
+    #   false:  Auto-publish (recommended for most teams)
+    #   true:   Every generation creates a PR for human review
+
+    qualityThreshold: 70                   # 0-100, reject docs below this score
+    driftDetection: true                   # Check if docs are stale
+    maxDriftDays: 7                        # Alert threshold for stale docs
+
+  # ═══════════════════════════════════════════════════════════════
+  # PLUGINS (optional — extend DeepWiki capabilities)
+  # ═══════════════════════════════════════════════════════════════
+  plugins: []
+
+  # Uncomment and configure plugins as needed:
+  #
+  # ── OpenAPI / Swagger ──
+  # - name: "openapi"
+  #   config:
+  #     specPath: "src/swagger.json"       # or openapi.yaml
+  #
+  # ── Database Schema ──
+  # - name: "database-schema"
+  #   config:
+  #     connectionString: "${DB_URL}"
+  #     # or
+  #     migrationPath: "src/database/migrations"
+  #
+  # ── Docker ──
+  # - name: "docker"
+  #   config:
+  #     dockerfilePath: "./Dockerfile"
+  #     composePath: "./docker-compose.yml"
+  #
+  # ── Terraform ──
+  # - name: "terraform"
+  #   config:
+  #     modulesPath: "infrastructure/"
+  #
+  # ── Kubernetes ──
+  # - name: "kubernetes"
+  #   config:
+  #     manifestsPath: "k8s/"
+  #     helmChartPath: "charts/"
+
+
+# ═══════════════════════════════════════════════════════════════
+# QUICK-START CONFIGURATIONS FOR COMMON PROJECT TYPES
+# ═══════════════════════════════════════════════════════════════
+#
+# Copy the relevant block above and adjust:
+#
+# ── React + Node.js Full-Stack ──
+#   project:
+#     type: "fullstack"
+#     languages: [typescript]
+#     framework: "nextjs"
+#   source:
+#     include: ["src/**", "app/**", "pages/**", "components/**"]
+#
+# ── Python Data Pipeline ──
+#   project:
+#     type: "data-pipeline"
+#     languages: [python]
+#     framework: "airflow"
+#   source:
+#     include: ["dags/**", "transformations/**", "models/**", "schemas/**"]
+#     exclude: ["**/*_test.py", "venv/**", "__pycache__/**"]
+#
+# ── Java Spring Boot ──
+#   project:
+#     type: "backend-api"
+#     languages: [java]
+#     framework: "spring-boot"
+#   source:
+#     include: ["src/main/**"]
+#     exclude: ["src/test/**", "target/**"]
+#
+# ── Go Microservice ──
+#   project:
+#     type: "microservice"
+#     languages: [go]
+#     framework: "gin"
+#   source:
+#     include: ["cmd/**", "internal/**", "pkg/**"]
+#     exclude: ["vendor/**", "**/*_test.go"]
+#
+# ── Monorepo (Turborepo/Nx) ──
+#   project:
+#     type: "monorepo"
+#     languages: [typescript]
+#     framework: "turborepo"
+#   source:
+#     include: ["packages/*/src/**", "apps/*/src/**"]
+#     exclude: ["**/*.test.*", "**/dist/**"]
